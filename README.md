@@ -19,7 +19,7 @@ The easiest way to install tcgaRNAML is from GitHub:
 
 
 
-## TUTORIAL: Modeling Relationships between Gene Expression and Clinical Features through a Survey of Machine Learning Classifiers with makeROCs
+## TUTORIAL #1: Modeling Relationships between Gene Expression and Clinical Features through a Survey of Machine Learning Classifiers with makeROCs
 
 This function generates a multi-Receiver Operating Characteristic (ROC) plot using RNA-seq data from The Cancer Genome Atlas (TCGA) database.  Here, the predictor variables are 20501 genes and their normalized gene expression values, while the response variable is a user-specified clinical feature.  TCGA gene expression data is imported using the TCGA2STAT package.  Feature selection is performed, and the remaining features (genes) are processed by five different machine learning classifiers: LASSO-Logistic, K-Nearest Neighbor, Random Forest, a Radial-Kernal Support Vector Machine, and a Sigmoid-Kernal Support Vector Machine.  An ROC curve is generated from each classifier, and combined onto one plot.  If a relationship does exist, the milti-ROC plot indicates which machine learning algorithm has the best predictive power.  
 
@@ -42,7 +42,7 @@ Here's a multi-panel plot of four other simulations using varying arguments gene
 
 
 
-## TUTORIAL: Using Random Forest Classifiers to Identify Cross-Cancer High-Impact Genes with varselectVenn
+## TUTORIAL #2: Using Random Forest Classifiers to Identify Cross-Cancer High-Impact Genes with varselectVenn
 
 This function generates a Venn diagram using RNA-seq data from the The Cancer Genome Atlas (TCGA) database.  Users specify which cancer types to include (varselectVenn currently supports 2- and 3-set Venn diagrams), as well as the target variable to predict.  The predictors consist of 20501 genes and their normalized gene expression values.  The data is processed by a random forest classifier, and the variables (genes) are ranked by their influence on the model’s predictive power.  Users specify how many of the high-importance genes to retain, and a Venn diagram is generated that shows which genes are of high-importance among the different cancer types.  The function also returns a list object that specifies which genes were retained for each cancer type, as well as which genes were at the intersection of all specified cancers types.
 

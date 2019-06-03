@@ -3,7 +3,7 @@
 An R Package for Analyzing Gene Expression data from The Cancer Genome Atlas
 
 ## About tcgaRNAML
-tcgaRNAML is a collection of functions used to explore the relationship between clinical features and gene expression data from The Cancer Genome Atlas (TCGA) database.  The package represents only a small subset of code written for the purpose of general TCGA data exploration.  It relies on the [TCGA2STAT](https://cran.r-project.org/web/packages/TCGA2STAT/index.html) package to access and download up-to-date datasets from the TGCA data portal.  It currently supports two functions: makeROCs and varselectVenn.
+tcgaRNAML is a collection of functions used to explore the relationship between clinical features and gene expression data from The Cancer Genome Atlas (TCGA) database.  The package represents only a small subset of code written for the purpose of general TCGA data exploration.  It relies on the [TCGA2STAT](https://cran.r-project.org/web/packages/TCGA2STAT/index.html) package to access and download RNA-seq datasets from the TGCA data portal.  The package currently supports two functions: makeROCs and varselectVenn.
 
 
 
@@ -11,9 +11,9 @@ tcgaRNAML is a collection of functions used to explore the relationship between 
 The easiest way to install tcgaRNAML is from GitHub.
 1. Clone the Repository to your Local Machine
 2. Unzip the Contents
-3. Move to the Directory where the Package was Unzipped and Build using the Command Line (ie. R CMD build tcgaRNAML)
-4. Now Install at the Command Line (ie. R CMD install tcgaRNAML_0.1.tar.gz)
-5. Open R or Researt your R Session
+3. Move to the Directory where the Package was Unzipped and Build from the Command Line (ie. R CMD build tcgaRNAML)
+4. Now Install from the Command Line (ie. R CMD install tcgaRNAML_0.1.tar.gz)
+5. Researt your R Session
 6. Load the Package (ie. library(tcgaRNAML))
 
 
@@ -21,9 +21,7 @@ The easiest way to install tcgaRNAML is from GitHub.
 
 ## TUTORIAL: Modeling Relationships between Gene Expression and Clinical Features through a Survey of Machine Learning Classifiers with makeROCs
 
-This function generates a multi-Receiver Operating Characteristic (ROC) plot using RNA-seq data from The Cancer Genome Atlas (TCGA) database and a user-specified target variable.  TCGA data is imported using the TCGA2STAT package.  Feature selection is performed, and the remaining features (genes) are processed by five different machine learning classifiers: LASSO-Logistic, K-Nearest Neighbor, Random Forest, a Radial-Kernal Support Vector Machine, and a Sigmoid-Kernal Support Vector Machine.  An ROC curve is generated from each classifier, and combined onto one plot.
-
-The resulting plot indicates the strength of the relationship between the user-specified target variable (either tumor stage or gender) and the gene expression values for 20501 TCGA-supported genes.  If a relationship does exist, the milti-ROC plot indicates which machine learning algorithm has the best predictive power.  
+This function generates a multi-Receiver Operating Characteristic (ROC) plot using RNA-seq data from The Cancer Genome Atlas (TCGA) database.  Here, the predictor variables are 20501 genes and their normalized gene expression values, while the response variable is a user-specified clinical feature.  TCGA gene expression data is imported using the TCGA2STAT package.  Feature selection is performed, and the remaining features (genes) are processed by five different machine learning classifiers: LASSO-Logistic, K-Nearest Neighbor, Random Forest, a Radial-Kernal Support Vector Machine, and a Sigmoid-Kernal Support Vector Machine.  An ROC curve is generated from each classifier, and combined onto one plot.  The resulting plot indicates the strength of the relationship between the target variable and the 20501 predictors.  If a relationship does exist, the milti-ROC plot indicates which machine learning algorithm has the best predictive power.  
 
 Users can specify two different target variables: tumor stage and gender.  Additionally, six cancer types are currently supported: Adrenocortical Carcinoma (ACC), Bladder Urothelial Carcinoma (BLCA), Kidney Renal Clear Cell Carcinoma (KIRC), Kidney Renal Papillary Cell Carcinoma (KIRP), Liver Heptocellular Carcinoma (LIHC), and Thyroid Carcinoma (THCA).  Users can also specify "Random" in place of the target variable argument.  This will generate a multi-ROC plot with a randomly-selected target and cancer type. 
 
@@ -32,7 +30,7 @@ Users can specify two different target variables: tumor stage and gender.  Addit
 makeROCs("THCA", "Gender")
 ![image](https://github.com/jblam251/tcgaRNAML/blob/master/images/GENDER%20THCA.png)
  
-Gene expression levels in patients with thyroid carcinoma is a generally poor predictor of gender.  Neither of the five models attained an AUC of .75, with the LASSO-Logistic model performing slightly better than the other algorithms.  In general, predicting gender may not be as clinically useful as, for instance, predicting tumor stage, metastatic disease, or vital status.  
+Gender generally cannor be preeicted based on gene expression levels in patients with thyroid carcinoma.  Neither of the five models attained an AUC of .75, with the LASSO-Logistic model performing slightly better than the other algorithms.  In general, predicting gender may not be as clinically useful as, for instance, predicting tumor stage, metastatic status, or vital status.  
 
 Here's a multi-panel plot of four other simulations using varying arguments generated by makeROCs:
 
@@ -42,18 +40,16 @@ Here's a multi-panel plot of four other simulations using varying arguments gene
 
 
 
-## TUTORIAL: Applying Random Forest Classifiers to Gene Expression Data to Identify Cross-Cancer High-Impact Genes with varselectVenn
+## TUTORIAL: Using Random Forest Classifiers to Identify Cross-Cancer High-Impact Genes with varselectVenn
 
-This function generates a Venn diagram using RNA-seq data from the The Cancer Genome Atlas (TCGA) database.  Users specify which cancer types to include (varselectVenn currently supports 2- and 3-set Venn diagrams), as well as the target variable to predict.  The user-specified data is processed by a random forest classifier, and the variables (genes) are ranked by their influence on the model’s predictive power.  
-
-Users specify how many of the high-importance genes to retain, and a Venn diagram is generated that shows which genes are of high-importance among the different cancer types.  The function also returns a list object that specifies which genes were retained for each cancer type, as well as which genes were at the intersection of all specified cancers types.
+This function generates a Venn diagram using RNA-seq data from the The Cancer Genome Atlas (TCGA) database.  Users specify which cancer types to include (varselectVenn currently supports 2- and 3-set Venn diagrams), as well as the target variable to predict.  The predictors consist of 20501 genes and their normalized gene expression values.  The data is processed by a random forest classifier, and the variables (genes) are ranked by their influence on the model’s predictive power.  Users specify how many of the high-importance genes to retain, and a Venn diagram is generated that shows which genes are of high-importance among the different cancer types.  The function also returns a list object that specifies which genes were retained for each cancer type, as well as which genes were at the intersection of all specified cancers types.
 
 ### Example: Examining High-Importance Genes in Determining Vital Status Across Patients with Kidney Renal Clear Cell Carcinoma and Kidney Renal Papillary Cell Carcinoma
 ex01 <- varselectVenn(c("KIRC","KIRP"), 80, "vitalstatus")
 
 ![image](https://github.com/jblam251/tcgaRNAML/blob/master/images/KIRP-KIRC-vitastatus2.png)
 
-For KIRP and KIRC, all 20501 genes were ranked in terms of their impact on the random forest model's ablity to predict vital status based on gene expression levels. The top 80 genes were retained from each cancer type, and a Venn diagram was generated.  Three genes were highly-important in both cancer types.  These can be accessed in the returned list object:
+For KIRP and KIRC, all 20501 genes were ranked in terms of their impact on the random forest model's ablity to predict vital status based on gene expression levels. The top 80 genes were retained from each cancer type, and a Venn diagram was generated.  Three genes were determined to be highly-important in preeicting vital status for both cancer types.  These can be accessed in the returned list object:
 
 ex01$Intersect
 
@@ -62,4 +58,4 @@ ex01$Intersect
 "KIF18B"
 
 
-Notabely, MTHFD2 is a prognostic marker in renal cancer, endometrial cancer, and glioma according to The Human Protein Atlas.  Additionally, PTTG1 is implicated in a variety of cancers, and KIF18B is a marker in liver cancer, pancreatic cancer, and melanoma.
+Notabely, each of these three genes are implicated in various types of cancers.  MTHFD2 is a prognostic marker in renal cancer, endometrial cancer, and glioma according to The Human Protein Atlas.  Additionally, PTTG1 is implicated in a number of cancers, and KIF18B is a marker in liver cancer, pancreatic cancer, and melanoma.

@@ -27,7 +27,9 @@ Users can specify two different target variables: tumor stage and gender.  Addit
 
 ### Example: Predicting Gender from Gene Expression Data in Patients with Thyroid Carcinoma
 
+```R
 makeROCs("THCA", "Gender")
+```
 ![image](https://github.com/jblam251/tcgaRNAML/blob/master/images/GENDER%20THCA.png)
  
 Neither of the five models attained an AUC above 0.75, with the LASSO-Logistic model performing slightly better than the other algorithms.  In general, predicting gender may not be as clinically useful as, for instance, predicting tumor stage, metastatic status, or vital status.  
@@ -45,17 +47,20 @@ Here's a multi-panel plot of four other simulations using varying arguments gene
 This function generates a Venn diagram using RNA-seq data from the The Cancer Genome Atlas (TCGA) database.  Users specify which cancer types to include (varselectVenn currently supports 2- and 3-set Venn diagrams), as well as the target variable to predict.  The predictors consist of 20501 genes and their normalized gene expression values.  The data is processed by a random forest classifier, and the variables (genes) are ranked by their influence on the model’s predictive power.  Users specify how many of the high-importance genes to retain, and a Venn diagram is generated that shows which genes are of high-importance among the different cancer types.  The function also returns a list object that specifies which genes were retained for each cancer type, as well as which genes were at the intersection of all specified cancers types.
 
 ### Example: Examining High-Importance Genes in Determining Vital Status Across Patients with Kidney Renal Clear Cell Carcinoma and Kidney Renal Papillary Cell Carcinoma
+```R
 ex01 <- varselectVenn(c("KIRC","KIRP"), 80, "vitalstatus")
+```
 
 ![image](https://github.com/jblam251/tcgaRNAML/blob/master/images/KIRP-KIRC-vitastatus2.png)
 
 For KIRP and KIRC, all 20501 genes were ranked in terms of their impact on the random forest model's ablity to predict vital status based on gene expression levels. The top 80 genes were retained from each cancer type, and a Venn diagram was generated.  Three genes were determined to be highly-important in predicting vital status for both cancer types.  These can be accessed in the returned list object:
 
+```R
 ex01$Intersect
 
 "MTHFD2"
 "PTTG1"
 "KIF18B"
-
+```
 
 Each of these three genes are implicated in various types of cancers.  Perhaps most notably is MTHFD2, which encodes an enzyme responsible for regulating the balance between DNA methylation and nucleotide synthesis.  MTHFD2 is thus prognostic marker in renal cancer, endometrial cancer, and glioma according to The Human Protein Atlas.  Additionally, PTTG1 is implicated in a number of cancers, and KIF18B is a marker in liver cancer, pancreatic cancer, and melanoma.

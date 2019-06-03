@@ -1,0 +1,17 @@
+Package: tcgaRNAML
+Title: a Package for Applying Machine Learning Classifiers to Gene Expression Data from The Cancer Genome Atlas 
+Date: 05-31-2019
+Version: 0.1
+Description: This is a collection of functions used for exploring the relationship between clinical features and gene expression data from The Cancer Genome Atlas database.  Functions continue to be updated, modified, and added.
+Depends:
+	caret,
+	randomForest,
+	e1071,
+	glmnet,
+	pROC,
+	TCGA2STAT,
+	MXM,
+	VennDiagram,
+	ROCR
+Author: Jacob Blamer <jwilliamblamer@gmail.com>
+RoxygenNote: 6.1.1.9000

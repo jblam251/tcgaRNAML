@@ -57,9 +57,9 @@ For KIRP and KIRC, all 20501 genes were ranked in terms of their impact on the r
 
 ex01$Intersect
 
-MTHFD2
-PTTG1
-KIF18B
+"MTHFD2"
+"PTTG1"
+"KIF18B"
 
 
 Notabely, MTHFD2 is a prognostic marker in renal cancer, endometrial cancer, and glioma according to The Human Protein Atlas.  Additionally, PTTG1 is implicated in a variety of cancers, and KIF18B is a marker in liver cancer, pancreatic cancer, and melanoma.

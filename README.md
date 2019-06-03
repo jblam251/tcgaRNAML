@@ -1,6 +1,5 @@
 # tcgaRNAML
 
-# tcgaRNAML
 An R Package for Analyzing Gene Expression data from The Cancer Genome Atlas
 
 ## About tcgaRNAML
